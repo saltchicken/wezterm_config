@@ -17,40 +17,10 @@ end)
 
 local mux = wezterm.mux
 
--- wezterm.on("update-right-status", function(window, pane)
--- 	local overrides = window:get_config_overrides() or {}
--- 	local config = wezterm.config_builder()
--- 	local scheme = wezterm.get_builtin_color_schemes()[config.color_scheme]
---
--- 	if scheme and scheme.background then
--- 		print("Current background color:", scheme.background)
--- 	end
--- end)
-
--- wezterm.on("gui-startup", function(cmd)
--- 	local tab, pane, window = mux.spawn_window(cmd or {})
--- 	window:gui_window():maximize()
--- end)
-
 local config = wezterm.config_builder()
--- config.wsl_domains = {
--- 	{
--- 		name = "WSL:Ubuntu",
--- 		distribution = "Ubuntu",
--- 	},
--- }
--- config.default_domain = "WSL:Ubuntu"
 
--- config.window_background_image = "C:\\Users\\saltchicken\\Pictures\\ripple_glow.gif"
--- wezterm.log_info("Background image: " .. config.window_background_image)
-
-config.window_background_opacity = 0.8 -- Adjust this value between 0.0 and 1.0
+config.window_background_opacity = 0.8
 config.color_scheme = "Breath (Gogh)"
-
--- local color_scheme = wezterm.get_builtin_color_schemes()
--- local selected_scheme = color_scheme["Breath (Gogh)"]
---
--- wezterm.log_info(selected_scheme.background)
 
 config.term = "xterm-256color"
 
@@ -66,9 +36,6 @@ config.window_padding = {
 	left = 10,
 	right = 10,
 }
-
--- config.initial_rows = 60
--- config.initial_cols = 150
 
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
@@ -120,7 +87,11 @@ config.keys = {
 		mods = "LEADER",
 		action = action.TogglePaneZoomState,
 	},
-	{ key = "[", mods = "LEADER", action = action.ActivateCopyMode },
+	{ 
+		key = "[", 
+		mods = "LEADER", 
+		action = action.ActivateCopyMode 
+	},
 	{
 		key = "c",
 		mods = "LEADER",
@@ -142,16 +113,16 @@ config.keys = {
 		mods = "LEADER",
 		action = action.CloseCurrentPane({ confirm = true }),
 	},
-	{ key = "q", mods = "LEADER", action = action.PaneSelect },
-	-- activate pane selection mode with numeric labels
-	-- {
-	-- 	key = "9",
-	-- 	mods = "LEADER",
-	-- 	action = action.PaneSelect({
-	-- 		alphabet = "1234567890",
-	-- 	}),
-	-- },
-	-- show the pane selection mode, but have it swap the active and selected panes
+	{
+	    	key = "s",
+    		mods = "LEADER",
+    		action = wezterm.action.ToggleTabBar,
+	},
+	{ 	
+		key = "q", 
+		mods = "LEADER", 
+		action = action.PaneSelect
+	},
 	{
 		key = "Q",
 		mods = "LEADER",
