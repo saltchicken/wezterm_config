@@ -41,6 +41,18 @@ config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
 local action = wezterm.action
 
+wezterm.on("toggle-tabbar", function(window, _)
+	local overrides = window:get_config_overrides() or {}
+	if overrides.enable_tab_bar == false then
+		wezterm.log_info("tab bar shown")
+		overrides.enable_tab_bar = true
+	else
+		wezterm.log_info("tab bar hidden")
+		overrides.enable_tab_bar = false
+	end
+	window:set_config_overrides(overrides)
+end)
+
 config.keys = {
 	{
 		key = "\\",
@@ -87,10 +99,10 @@ config.keys = {
 		mods = "LEADER",
 		action = action.TogglePaneZoomState,
 	},
-	{ 
-		key = "[", 
-		mods = "LEADER", 
-		action = action.ActivateCopyMode 
+	{
+		key = "[",
+		mods = "LEADER",
+		action = action.ActivateCopyMode,
 	},
 	{
 		key = "c",
@@ -114,14 +126,14 @@ config.keys = {
 		action = action.CloseCurrentPane({ confirm = true }),
 	},
 	{
-	    	key = "s",
-    		mods = "LEADER",
-    		action = wezterm.action.ToggleTabBar,
+		key = "s",
+		mods = "LEADER",
+		action = action.EmitEvent("toggle-tabbar"),
 	},
-	{ 	
-		key = "q", 
-		mods = "LEADER", 
-		action = action.PaneSelect
+	{
+		key = "q",
+		mods = "LEADER",
+		action = action.PaneSelect,
 	},
 	{
 		key = "Q",
