@@ -18,6 +18,7 @@ end)
 local mux = wezterm.mux
 
 local config = wezterm.config_builder()
+-- config.default_prog = { "cmd.exe", "/K", "%USERPROFILE%\\miniconda3\\Scripts\\activate.bat" }
 
 config.window_background_opacity = 0.8
 config.color_scheme = "Breath (Gogh)"
