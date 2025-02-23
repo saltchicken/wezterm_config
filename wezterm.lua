@@ -54,6 +54,11 @@ wezterm.on("toggle-tabbar", function(window, _)
 	window:set_config_overrides(overrides)
 end)
 
+wezterm.on("split_into_three_panes", function(window, pane)
+	pane:split({ direction = "Right", size = 0.33 }) -- First split to the right
+	pane:split({ direction = "Right", size = 0.5 }) -- Second split to the right
+end)
+
 config.keys = {
 	{
 		key = "\\",
@@ -158,15 +163,19 @@ config.keys = {
 			end),
 		}),
 	},
-
+	{
+		key = "3",
+		mods = "LEADER",
+		action = wezterm.action.EmitEvent("split_into_three_panes"),
+	},
 }
 
-for i = 1, 9 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "LEADER",
-		action = action.ActivateTab(i - 1),
-	})
-end
+-- for i = 1, 9 do
+-- 	table.insert(config.keys, {
+-- 		key = tostring(i),
+-- 		mods = "LEADER",
+-- 		action = action.ActivateTab(i - 1),
+-- 	})
+-- end
 
 return config
