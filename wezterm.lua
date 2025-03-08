@@ -101,7 +101,7 @@ config.keys = {
 		action = action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = "m",
+		key = "z",
 		mods = "LEADER",
 		action = action.TogglePaneZoomState,
 	},
@@ -167,6 +167,17 @@ config.keys = {
 		key = "3",
 		mods = "LEADER",
 		action = wezterm.action.EmitEvent("split_into_three_panes"),
+	},
+	{
+		key = "m", -- Change this to your preferred key
+		mods = "LEADER",
+		action = wezterm.action({
+			SpawnCommandInNewWindow = {
+				args = {
+					"/home/saltchicken/.config/wezterm/watch.sh",
+				},
+			},
+		}),
 	},
 }
 
